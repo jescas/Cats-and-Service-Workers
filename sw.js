@@ -33,9 +33,9 @@ self.addEventListener('install', function(e) {
 self.addEventListener('activate', function(e) {
   e.waitUntil(caches.keys().then(function(cacheNames) {
       return Promise.all(
-        cacheNames.map(function(cacheName) {
-          if (cacheName !== cacheName) {
-            return caches.delete(cacheName);
+        cacheNames.map(function(cachename) {
+          if (cachename !== cacheName) {
+            return caches.delete(cachename);
           }
         })
       );
