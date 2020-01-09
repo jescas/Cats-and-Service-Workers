@@ -34,7 +34,7 @@ self.addEventListener('activate', function(e) {
   e.waitUntil(caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
-          if (cacheName !== staticCacheName) {
+          if (cacheName !== cacheName) {
             return caches.delete(cacheName);
           }
         })
