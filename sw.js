@@ -1,16 +1,25 @@
 const cacheName = 'v1';
 const cacheAssets = [
-  'index.html',
-  'aboutus.html',
-  'contact.html',
-  'staff.html',
-  'contact.css',
-  'index.css',
-  'test.css',
-  'kit1.jpg',
-  'kit2.jpg',
-  'kit3.jpg'
-]
+  './index.html',
+  './aboutus.html',
+  './contact.html',
+  './staff.html',
+
+  './css/contact.css',
+  './css/normalize.css',
+  './css/index.css',
+  './css/staff-aboutus.css',
+
+  'images/kit1.jpg',
+  'images/kit2.jpg',
+  'images/kit3.jpg',
+  'https://placekitten.com/295/200',
+  'https://placekitten.com/295/201',
+  'https://placekitten.com/295/203',
+
+  'https://fonts.googleapis.com/css?family=Lato&display=swap',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css'
+];
 
 self.addEventListener('install', function(e) {
   e.waitUntil(
@@ -21,12 +30,36 @@ self.addEventListener('install', function(e) {
   );
 });
 
-self.addEventListener('activate', e => {
-  
-
+self.addEventListener('activate', function(e) {
+  e.waitUntil(caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheName !== staticCacheName) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
 });
 
-self.addEventListener('fetch', e => {
-  
-
+self.addEventListener('fetch', function(e) {
+  e.respondWith(caches.match(e.request)
+    .then(function(response) {
+      if (response) {
+        return response;
+      } else {
+        return fetch(e.request)
+          .then(function(reg) {
+            return caches.open(cacheName)
+              .then(function(cache) {
+                cache.put(e.request.url, reg.clone());
+                return reg;
+              })
+          })
+          .catch(err => console.log(err));
+      }
+    })
+  );
 });
+        
