@@ -13,12 +13,12 @@ const cacheAssets = [
   'images/kit1.jpg',
   'images/kit2.jpg',
   'images/kit3.jpg',
-  'https://placekitten.com/295/200',
-  'https://placekitten.com/295/201',
-  'https://placekitten.com/295/203',
+  "https://placekitten.com/295/200",
+  "https://placekitten.com/295/200",
+  "https://placekitten.com/295/200",
 
-  'https://fonts.googleapis.com/css?family=Lato&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css'
+  "https://fonts.googleapis.com/css?family=Lato&display=swap",
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
 ];
 
 self.addEventListener('install', function(e) {
